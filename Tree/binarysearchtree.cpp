@@ -7,6 +7,7 @@
  *******************************************************************************/
 
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -111,6 +112,51 @@ void printInorder(Node* root) {
     }
 }
 
+void printPreorder(Node* root) {
+    cout<<root->data<<" ";
+    
+    if(root->leftChild != NULL) {
+        printPreorder(root->leftChild);
+    }
+    
+    if(root->rightChild != NULL) {
+        printPreorder(root->rightChild);
+    }
+}
+
+void printPostorder(Node* root) {
+    if(root->leftChild != NULL) {
+        printPreorder(root->leftChild);
+    }
+    
+    if(root->rightChild != NULL) {
+        printPreorder(root->rightChild);
+    }
+    
+    cout<<root->data<<" ";
+}
+
+void printBFS(Node* root) {
+    vector<Node*> queue;
+    
+    queue.push_back(root);
+    
+    while(queue.size() != 0) {
+        Node* p = queue[0];
+        queue.erase(queue.begin());
+        
+        cout<<p->data<<" ";
+        
+        if(p->leftChild != NULL) {
+            queue.push_back(p->leftChild);
+        }
+        
+        if(p->rightChild != NULL) {
+            queue.push_back(p->rightChild);
+        }
+    }
+}
+
 int main()
 {
     Node* root = new Node(40);
@@ -121,11 +167,11 @@ int main()
     insertNode(root, 30);
     insertNode(root, 50);
     
-    printInorder(root);
+    //printInorder(root);
     
-    deleteNode(root, 20);
+    //deleteNode(root, 20);
     
-    printInorder(root);
+    printBFS(root);
     
     return 0;
 }
