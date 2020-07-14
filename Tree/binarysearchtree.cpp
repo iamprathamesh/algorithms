@@ -1,17 +1,17 @@
 /******************************************************************************
-
-                              Online C++ Compiler.
-               Code, Compile, Run and Debug C++ program online.
-Write your code in this editor and press "Run" button to compile and execute it.
-
-*******************************************************************************/
+ 
+ Online C++ Compiler.
+ Code, Compile, Run and Debug C++ program online.
+ Write your code in this editor and press "Run" button to compile and execute it.
+ 
+ *******************************************************************************/
 
 #include <iostream>
 
 using namespace std;
 
 class Node {
-  public:
+public:
     Node* leftChild;
     int data;
     Node* rightChild;
@@ -89,7 +89,12 @@ void deleteNode(Node* root, int data) {
         }
         
         node->data = greatest->data;
-        pGreatest->rightChild = NULL;
+        
+        if(pGreatest->leftChild == greatest) {
+            pGreatest->leftChild = NULL;
+        } else {
+            pGreatest->rightChild = NULL;
+        }
         
     }
 }
@@ -118,9 +123,9 @@ int main()
     
     printInorder(root);
     
-    deleteNode(root, 30);
+    deleteNode(root, 20);
     
     printInorder(root);
-
+    
     return 0;
 }
