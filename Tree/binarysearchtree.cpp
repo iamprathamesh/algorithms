@@ -157,6 +157,65 @@ void printBFS(Node* root) {
     }
 }
 
+int getHeight(Node* root) {
+    int currentheight = 0;
+    
+    if(root == NULL) {
+        return 0;
+    }
+    
+    int leftHeight = getHeight(root->leftChild);
+    int rightHeight = getHeight(root->rightChild);
+    
+    if(leftHeight < rightHeight) {
+        currentheight = rightHeight + 1;
+    } else {
+        currentheight = leftHeight + 1;
+    }
+    
+    return currentheight;
+}
+
+void printSpiral(Node* root) {
+    vector<Node*> stack1;
+    vector<Node*> stack2;
+    
+    stack1.push_back(root);
+    
+    while(stack1.size() > 0 || stack2.size() > 0) {
+        
+        while(stack1.size() > 0) {
+            int size = stack1.size()-1;
+            Node* node = stack1[size];
+            stack1.erase(stack1.begin() + size);
+            cout<<node->data<<" ";
+            if(node->leftChild != NULL) {
+                stack2.push_back(node->leftChild);
+            }
+            if(node->rightChild != NULL) {
+                stack2.push_back(node->rightChild);
+            }
+            node = NULL;
+        }
+        
+        while(stack2.size() > 0) {
+            int size = stack2.size()-1;
+            Node* node = stack2[size];
+            stack2.erase(stack2.begin() + size);
+            cout<<node->data<<" ";
+            if(node->rightChild != NULL) {
+                stack1.push_back(node->rightChild);
+            }
+            if(node->leftChild != NULL) {
+                stack1.push_back(node->leftChild);
+            }
+            node = NULL;
+        }
+        
+    }
+    
+}
+
 int main()
 {
     Node* root = new Node(40);
@@ -171,7 +230,11 @@ int main()
     
     //deleteNode(root, 20);
     
-    printBFS(root);
+    //printBFS(root);
+    
+    cout<<getHeight(root)<<"\n";
+    
+    printSpiral(root);
     
     return 0;
 }
